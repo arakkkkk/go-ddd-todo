@@ -1,9 +1,9 @@
 package server
 
 import (
+	todoHandler "todo/internal/domain/todo/handler"
 	todoRepository "todo/internal/domain/todo/repository"
 	todoUsecase "todo/internal/domain/todo/usecase"
-	todoHandler "todo/internal/domain/todo/handler"
 )
 
 func (s *Server) InitDomains() {
@@ -13,9 +13,9 @@ func (s *Server) InitDomains() {
 func (s *Server) initTodo() {
 	todoRepository := todoRepository.New(s.ent)
 
-	newAuthorUseCase := todoUsecase.New(
+	todoUseCase := todoUsecase.New(
 		todoRepository,
 	)
 
-	todoHandler.RegisterHTTPEndPoints(s.router, newAuthorUseCase)
+	todoHandler.RegisterHTTPEndPoints(s.router, todoUseCase)
 }

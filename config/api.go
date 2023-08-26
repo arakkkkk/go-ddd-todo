@@ -8,7 +8,7 @@ type Api struct {
 	Port              string
 }
 
-func API() *Api {
+func newAPI() *Api {
 	port := os.Getenv("API_PORT")
 	api := &Api{
 		Port: port,

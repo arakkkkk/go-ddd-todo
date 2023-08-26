@@ -63,8 +63,8 @@ func (s *Server) newEnt() {
 	}
 	client, _ := ent.Open("mysql", mc.FormatDSN(), entOptions...)
 	// defer client.Close()
-	if err := client.Schema.Create(context.Background()); err != nil {
-		log.Fatalf("failed creating schema resources: %v", err)
-	}
+	// if err := client.Schema.Create(context.Background()); err != nil {
+	// 	log.Fatalf("failed creating schema resources: %v", err)
+	// }
 	s.ent = client
 }

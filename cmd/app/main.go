@@ -1,9 +1,9 @@
 package main
 
-import (
-  "todo/internal/app"
-)
+import "todo/internal/server"
 
 func main() {
-  app.Run()
+	s := server.New()
+	s.Init()
+	s.Run()
 }

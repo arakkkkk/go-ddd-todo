@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"time"
+	"todo/internal/domain/todo"
 	"todo/internal/domain/todo/usecase"
 	"todo/internal/util/response"
 )
@@ -42,7 +43,13 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 		response.Error(w, http.StatusBadRequest, "Bad request.")
 		return
 	}
-	resp, err := json.MarshalIndent(req, "", "")
+	todo, err := h.usecase.Create(r.Context(), &todo.Schema{
+		Title: req.Title,
+		Completed: req.Completed,
+		Priority: req.Priority,
+		CretedAt: req.CreatedAt,
+	})
+	resp, err := json.MarshalIndent(todo, "", "")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	if err != nil {

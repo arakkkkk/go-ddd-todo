@@ -6,7 +6,6 @@ import (
 	"time"
 	"todo/ent"
 	"todo/internal/domain/todo"
-	entPkg "todo/pkg/ent"
 )
 
 type TodoRepository struct{
@@ -37,28 +36,16 @@ func entTodosBindEntiryTodos(t []*ent.Todo) []*todo.Schema {
 }
 
 func (r *TodoRepository) List(ctx context.Context) ([]*todo.Schema, error) {
-	client, err := entPkg.Open()
-  if err != nil {
-		log.Fatalf("failed connecting db: %v", err)
-	}
-	defer client.Close()
-  todos, err := client.Todo.Query().All(ctx)
+  todos, err := r.ent.Todo.Query().All(ctx)
   resp := entTodosBindEntiryTodos(todos)
-
   if err != nil {
 		log.Fatalf("failed query user: %v", err)
 	}
-
   return resp, nil
 }
 
 func (r *TodoRepository) Create(ctx context.Context, t *todo.Schema) (*todo.Schema, error) {
-	client, err := entPkg.Open()
-  if err != nil {
-		log.Fatalf("failed connecting db: %v", err)
-	}
-	defer client.Close()
-  todo, err := client.Todo.
+  todo, err := r.ent.Todo.
     Create().
     SetTitle(t.Title).
     SetCompleted(t.Completed).

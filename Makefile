@@ -1,10 +1,10 @@
 testadd:
-	curl --request POST localhost:8080/v1/add \
+	curl --request POST localhost:8080/api/v1/todo/create \
 		--header 'content-type: application/json' \
 		--data '{"title": "test todo", "priority": 5}'
 
 testget:
-	curl --request GET localhost:8080/v1/list
+	curl --request GET localhost:8080/api/v1/todo/list
 
 run:
 	docker compose up -d
@@ -21,6 +21,8 @@ down:
 logs:
 	docker compose logs -f
 
+downall:
+	docker-compose down --rmi all --volumes --remove-orphans
 
 watch:
 	watch docker compose ps
