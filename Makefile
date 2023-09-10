@@ -27,3 +27,6 @@ downall:
 watch:
 	watch docker compose ps
 
+uml:
+	goplantuml -output doc/uml.md -ignore ent -recursive ./
+
