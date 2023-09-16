@@ -1,3 +1,6 @@
+run:
+	docker compose up -d
+
 testadd:
 	curl --request POST localhost:8080/api/v1/todo/create \
 		--header 'content-type: application/json' \
@@ -6,8 +9,6 @@ testadd:
 testget:
 	curl --request GET localhost:8080/api/v1/todo/list
 
-run:
-	docker compose up -d
 
 restart:
 	docker compose restart

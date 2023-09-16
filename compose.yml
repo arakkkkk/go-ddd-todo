@@ -18,6 +18,8 @@ services:
         source: ./
         target: /go/src
     restart: always
+    networks:
+      - cros
 
   db:
     container_name: todo_db
@@ -26,7 +28,7 @@ services:
       dockerfile: Dockerfile
     tty: true
     ports:
-      - 3309:3306
+      - 3309:3307
     env_file:
       - .env
     volumes:
@@ -34,7 +36,14 @@ services:
         source: mysql
         target: /var/lib/mysql
     restart: always
+    networks:
+      - cros
 
 volumes:
   mysql:
+
+networks:
+  cros:
+    name: cros_network
+
 
