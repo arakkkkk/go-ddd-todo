@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"time"
 	"todo/ent"
 	"todo/internal/domain/todo"
@@ -39,7 +39,7 @@ func (r *TodoRepository) List(ctx context.Context) ([]*todo.Schema, error) {
   todos, err := r.ent.Todo.Query().All(ctx)
   resp := entTodosBindEntiryTodos(todos)
   if err != nil {
-		log.Fatalf("failed query user: %v", err)
+		return nil, fmt.Errorf("failed query user: %v", err)
 	}
   return resp, nil
 }
@@ -54,7 +54,7 @@ func (r *TodoRepository) Create(ctx context.Context, t *todo.Schema) (*todo.Sche
     Save(ctx)
 
   if err != nil {
-		log.Fatalf("failed creating todo: %v", err)
+		return nil, fmt.Errorf("failed creating todo: %v", err)
 	}
 
 	entityTodo := entBindSchema(todo)
